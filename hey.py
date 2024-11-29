@@ -1,5 +1,11 @@
-n = int(input())
-n_list = list(map(int, input().split()))
-v = int(input())
+N, M = map(int, input().split())
+basket = [i for i in range(1, N+1)]
 
-print(n_list.count(v))
+for i in range(M):
+    i,j = map(int, input().split())
+    temp = basket[i-1:j]
+    temp.reverse()
+    basket[i-1:j] = temp
+
+for i in range(N):
+    print(basket[i], end = ' ')
