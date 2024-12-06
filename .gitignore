@@ -1,2 +1,5 @@
 output.txt
 input.txt
+
+# 이미 Git에서 추적 중인 input.txt와 output.txt가 있다면 .gitignore에 추가해도 효과가 없습니다. 이를 해결하려면 다음 단계를 수행하세요:
+# git rm --cached input.txt output.txt
