@@ -62,7 +62,9 @@ print(3)
 
 #24313 다시보자
 
-#2798 블랙잭
+#2798 블랙잭 - 브루트 포스로 풀기 혹은 그냥 조합 라이브러리
+
+#브루트포스 버젼
 # 입력 처리
 N, M = map(int, input().split())  # N: 카드 개수, M: 합의 최대값
 arr = list(map(int, input().split()))  # 카드에 적힌 숫자 리스트
@@ -82,3 +84,73 @@ for i in range(N):  # 첫 번째 카드
 
 # 결과 출력
 print(result)
+
+#2231 분해합
+#식을 세우는게 아주 쉽지가 않았다.
+#하지만 분해합 식을 보면 분해합S= 생성자 + 생성자 각 자리수의 합이라는 것을 알 수 있다.
+#이걸로 생성자 = 분해합 - 각 자리수의 합이므로 식을 세울 수 있다.
+
+# 입력
+N = int(input())
+
+# 최소 생성자를 찾기 위한 초기값 설정
+min_creator = 0
+
+# 가능한 범위 탐색 (N - 자리 수 * 9)
+start = max(1, N - len(str(N)) * 9)  # 생성자가 존재할 최소 범위
+for i in range(start, N):
+    # 분해합 계산
+    digit_sum = sum(map(int, str(i)))  # 각 자리 숫자의 합
+    if i + digit_sum == N:
+        min_creator = i
+        break
+
+# 결과 출력
+print(min_creator)
+
+#19532 브루트포스 풀이
+a, b, c, d, e, f = map(int, input().split())
+
+for i in range(-999, 1000):
+    for j in range(-999, 1000):
+        if (a*i) + (b*j) == c and (d*i) + (e*j) == f:
+            print(i,j)
+#혹은 연립방정식 그냥 풀기
+a, b, c, d, e, f = map(int, input().split())
+
+print((c*e-b*f)//(a*e-b*d), (a*f-d*c)//(a*e-b*d))
+
+# 크래머의 법칙(Cramer's Rule)은 선형 방정식 시스템을 행렬을 사용하여 푸는 방법 중 하나입니다. 주어진 연립방정식을 행렬 형태로 표현하고, 행렬식(Determinant)을 이용하여 해를 구하는 방법입니다.
+# 예를 들어, 다음과 같은 두 개의 연립방정식이 있다고 가정합니다:
+# ax + by = c
+# dx + ey = f
+# 이를 행렬 형태로 표현하면 다음과 같습니다:
+# | a  b | | x | = | c |
+# | d  e | | y |   | f |
+# 크래머의 법칙에 따르면, 이 연립방정식의 해 (x, y)는 다음과 같이 구할 수 있습니다:
+# x = (ce - bf) / (ae - bd)
+# y = (af - cd) / (ae - bd)
+
+#1018 체스판 다시 칠하기
+#생각보다 어려웠다, 블로그 참고함
+a, b = map(int, input().split())
+board = [input() for _ in range(a)]
+
+def count_repaints(board, start_row, start_col, first_color):
+    repaints = 0
+    for i in range(8):
+        for j in range(8):
+            expected_color = first_color if (i + j) % 2 == 0 else ('B' if first_color == 'W' else 'W')
+            if board[start_row + i][start_col + j] != expected_color:
+                repaints += 1
+    return repaints
+
+min_repaints = float('inf')
+
+for i in range(a - 7):
+    for j in range(b - 7):
+        repaints_w = count_repaints(board, i, j, 'W')
+        repaints_b = count_repaints(board, i, j, 'B')
+        min_repaints = min(min_repaints, repaints_w, repaints_b)
+
+print(min_repaints)
