@@ -147,6 +147,7 @@ def count_repaints(board, start_row, start_col, first_color):
 
 min_repaints = float('inf')
 
+#체스판 시작점 정하기
 for i in range(a - 7):
     for j in range(b - 7):
         repaints_w = count_repaints(board, i, j, 'W')

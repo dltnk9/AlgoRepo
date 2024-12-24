@@ -1,21 +1,31 @@
-a, b = map(int, input().split())
-board = [input() for _ in range(a)]
+import sys
 
-def count_repaints(board, start_row, start_col, first_color):
-    repaints = 0
-    for i in range(8):
-        for j in range(8):
-            expected_color = first_color if (i + j) % 2 == 0 else ('B' if first_color == 'W' else 'W')
-            if board[start_row + i][start_col + j] != expected_color:
-                repaints += 1
-    return repaints
+input = sys.stdin.readline
+N = int(input().strip())
+list_N = list(map(int, input().split()))
 
-min_repaints = float('inf')
+M = int(input().strip())
+list_M = list(map(int, input().split()))
 
-for i in range(a - 7):
-    for j in range(b - 7):
-        repaints_w = count_repaints(board, i, j, 'W')
-        repaints_b = count_repaints(board, i, j, 'B')
-        min_repaints = min(min_repaints, repaints_w, repaints_b)
+list_N.sort()
 
-print(min_repaints)
+def binary_search(arr, x):
+    left = 0
+    right = len(arr) - 1
+    
+    while left <= right:
+        mid = (left+right)//2
+        if arr[mid] == x:
+            return 1
+        
+        elif arr[mid] < x:
+            left = mid + 1
+        
+        elif arr[mid] > x:
+            right = mid -1
+
+    return 0
+
+for m in list_M:
+    print(binary_search(list_N, m), end=' ')
+
