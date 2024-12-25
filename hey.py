@@ -1,31 +1,16 @@
 import sys
-
 input = sys.stdin.readline
-N = int(input().strip())
-list_N = list(map(int, input().split()))
 
-M = int(input().strip())
-list_M = list(map(int, input().split()))
+# 입력 받기
+s = input().strip()
 
-list_N.sort()
+# 서로 다른 부분 문자열을 저장할 집합
+substrings = set()
 
-def binary_search(arr, x):
-    left = 0
-    right = len(arr) - 1
-    
-    while left <= right:
-        mid = (left+right)//2
-        if arr[mid] == x:
-            return 1
-        
-        elif arr[mid] < x:
-            left = mid + 1
-        
-        elif arr[mid] > x:
-            right = mid -1
+# 모든 부분 문자열을 집합에 추가
+for i in range(len(s)):
+    for j in range(i + 1, len(s) + 1):
+        substrings.add(s[i:j])
 
-    return 0
-
-for m in list_M:
-    print(binary_search(list_N, m), end=' ')
-
+# 결과 출력
+print(len(substrings))
