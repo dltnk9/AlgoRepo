@@ -160,3 +160,30 @@ symmetric_difference = A ^ B
 
 # 결과 출력
 print(len(symmetric_difference))
+
+
+#1934 최소공배수
+#유클리드 호제법으로 최대공약수 먼저 구하고 공배수 구함
+import sys
+input = sys.stdin.readline
+
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def lcm(a, b):
+    return a * b // gcd(a, b)
+
+# 입력 받기
+T = int(input().strip())
+results = []
+
+for _ in range(T):
+    a, b = map(int, input().split())
+    results.append(lcm(a, b))
+
+# 결과 출력
+for result in results:
+    print(result)
+
